@@ -3,21 +3,56 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <head>
   <meta charset="UTF-8">
-  <title>Kunder</title>
+  <title>motorvognregister</title>
 
 </head>
 <body>
-<h1>Kunde</h1>
-Eiers navn :<input type="text" id="navn"/>
-Eiers Personnummer :<input type="number" id="personnummer"/>
-Eiers adresse :<input type="text" id="adresse"/><br/>
-Kjennetegn :<input type="text" id="kjennetegn"/>
-Bilmerke:<input type="text" id="bilmerke"/>
-Bil Type:<input type="text" id="biltype"/>
-<button onclick="regKunde()">Registrer</button><br/>
-Alle kundene:
-<div id="kundene"></div>
-<button onclick="slettKundene()">Slett registrerte</button>
-<script src="kunde.js"></script>
+  <h1>Kunde</h1>
+  Eiers navn :<input type="text" id="navn"/>
+  Eiers Personnummer :<input type="number" id="personnummer"/>
+  Eiers adresse :<input type="text" id="adresse"/><br/>
+  Kjennetegn :<input type="text" id="kjennetegn"/>
+  Bilmerke:<input type="text" id="bilmerke"/>
+  Bil Type:<input type="text" id="biltype"/>
+  <button onclick="lagreMotorvogner()">Registrer</button><br/>
+  Alle kundene:
+  <div id="motorvognene"></div>
+  <button onclick="alleMotorvogner()">Slett registrerte</button>
+  <script type="application/javascript">
+    function hentData() {
+      const motorvogn = {
+        navn : $("#navn").val(),
+        adresse : $("#adresse").val()
+      }
+
+      $.post("/lagre", motorvogn, function () {
+        hentAlle();
+      });
+
+      $("#navn").val("");
+      $("#adresse").val("");
+    }
+
+    function hentAlle() {
+      $.get("/hentAlle", function (data) {
+        formaterData(data);
+      })
+    }
+
+    function formaterData(motorvogner){
+      let ut = "<table><tr><th>navn</th><th>adresse</th></tr>";
+      for (const motorvogn of motorvogner){
+        ut+="<tr><td>"+motorvogn.navn+"</td><td>"+motorvogn.adresse+"</td></tr>";
+      }
+      ut+="</table>";
+      $("#motorvognene").html(ut);
+    }
+
+    function slettMotorvognene(){
+      $.get("/slettAlle", function(){
+        hentAlle();
+      });
+    }
+  </script>
 </body>
 </html>
