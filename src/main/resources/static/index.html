@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<head>
+  <meta charset="UTF-8">
+  <title>Kunder</title>
+
+</head>
+<body>
+<h1>Kunde</h1>
+Eiers navn :<input type="text" id="navn"/>
+Eiers Personnummer :<input type="number" id="personnummer"/>
+Eiers adresse :<input type="text" id="adresse"/><br/>
+Kjennetegn :<input type="text" id="kjennetegn"/>
+Bilmerke:<input type="text" id="bilmerke"/>
+Bil Type:<input type="text" id="biltype"/>
+<button onclick="regKunde()">Registrer</button><br/>
+Alle kundene:
+<div id="kundene"></div>
+<button onclick="slettKundene()">Slett registrerte</button>
+<script src="kunde.js"></script>
+</body>
+</html>
