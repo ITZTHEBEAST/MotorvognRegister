@@ -1,58 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <head>
   <meta charset="UTF-8">
   <title>motorvognregister</title>
-
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 </head>
 <body>
-  <h1>Kunde</h1>
-  Eiers navn :<input type="text" id="navn"/>
-  Eiers Personnummer :<input type="number" id="personnummer"/>
-  Eiers adresse :<input type="text" id="adresse"/><br/>
-  Kjennetegn :<input type="text" id="kjennetegn"/>
-  Bilmerke:<input type="text" id="bilmerke"/>
-  Bil Type:<input type="text" id="biltype"/>
-  <button onclick="lagreMotorvogner()">Registrer</button><br/>
-  Alle kundene:
-  <div id="motorvognene"></div>
-  <button onclick="alleMotorvogner()">Slett registrerte</button>
-  <script type="application/javascript">
-    function hentData() {
-      const motorvogn = {
-        navn : $("#navn").val(),
-        adresse : $("#adresse").val()
-      }
+<h1>Kunde</h1>
+Eiers navn: <input type="text" id="navn"/>
+Eiers Personnummer: <input type="number" id="personnummer"/>
+Eiers adresse: <input type="text" id="adresse"/><br/>
+Kjennetegn: <input type="text" id="kjennetegn"/>
+Bilmerke: <input type="text" id="bilmerke"/>
+Bil Type: <input type="text" id="biltype"/>
+<button onclick="lagreMotorvogn()">Registrer</button><br/>
+Alle kundene:
+<div id="motorvognene"></div>
+<button onclick="slettAlleMotorvogner()">Slett registrerte</button>
 
-      $.post("/lagre", motorvogn, function () {
-        hentAlle();
-      });
+<script type="application/javascript">
+  function lagreMotorvogn() {
+    const motorvogn = {
+      navn: $("#navn").val(),
+      personnummer: $("#personnummer").val(),
+      adresse: $("#adresse").val(),
+      kjennetegn: $("#kjennetegn").val(),
+      bilmerke: $("#bilmerke").val(),
+      biltype: $("#biltype").val()
+    };
 
-      $("#navn").val("");
-      $("#adresse").val("");
+    $.post("/lagre", motorvogn, function () {
+      hentAlleMotorvogner();
+    });
+
+    $("#navn").val("");
+    $("#personnummer").val("");
+    $("#adresse").val("");
+    $("#kjennetegn").val("");
+    $("#bilmerke").val("");
+    $("#biltype").val("");
+  }
+
+  function hentAlleMotorvogner() {
+    $.get("/hentAlle", function (data) {
+      formaterData(data);
+    });
+  }
+
+  function formaterData(motorvogner) {
+    let ut = "<table><tr><th>Navn</th><th>Personnummer</th><th>Adresse</th><th>Kjennetegn</th><th>Bilmerke</th><th>Bil Type</th></tr>";
+    for (const motorvogn of motorvogner) {
+      ut += "<tr><td>" + motorvogn.navn + "</td><td>" + motorvogn.personnummer + "</td><td>" + motorvogn.adresse + "</td><td>" + motorvogn.kjennetegn + "</td><td>" + motorvogn.bilmerke + "</td><td>" + motorvogn.biltype + "</td></tr>";
     }
+    ut += "</table>";
+    $("#motorvognene").html(ut);
+  }
 
-    function hentAlle() {
-      $.get("/hentAlle", function (data) {
-        formaterData(data);
-      })
-    }
-
-    function formaterData(motorvogner){
-      let ut = "<table><tr><th>navn</th><th>adresse</th></tr>";
-      for (const motorvogn of motorvogner){
-        ut+="<tr><td>"+motorvogn.navn+"</td><td>"+motorvogn.adresse+"</td></tr>";
-      }
-      ut+="</table>";
-      $("#motorvognene").html(ut);
-    }
-
-    function slettMotorvognene(){
-      $.get("/slettAlle", function(){
-        hentAlle();
-      });
-    }
-  </script>
+  function slettAlleMotorvogner() {
+    $.get("/slettAlle", function(){
+      hentAlleMotorvogner();
+    });
+  }
+</script>
 </body>
 </html>
