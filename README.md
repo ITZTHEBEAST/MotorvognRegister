@@ -1,8 +1,8 @@
-Mål:
+**Mål:**
 lage et motorvognRegister med knapper som registrerer og sletter brukere
 
 
-Bruker Testing:
+## **Bruker Testing:**
 1.Hva tror du nettsiden skal brukes til?
 
 
@@ -22,7 +22,7 @@ Angi biltypen i feltet "Bil Type".
 
 
 
-Tilbakemeldingsspørsål:
+## **Tilbakemeldingsspørsål:**
 Var det enkelt å legge til en ny motorvogn ved å fylle ut skjemaet?
 Var informasjonen tydelig presentert, og var det lett å forstå hva som skulle fylles ut hvor?
 Ble den nye motorvognen lagret som forventet etter å ha trykket på "Registrer"?
@@ -32,8 +32,18 @@ Hvordan vurderer du opplevelsen med nettsiden?
 Har du noen forslag til forbedringer for å gjøre opplevelsen bedre?
 
 
-Bruker 1:
+## **Bruker 1:**
+Gutt, 17 år, har mye erfaring med pc, har ikke brukt en nettside for motorvognregistre.
 
+1. jeg tror nettsiden er for å registrere bilen din i en database
+
+Jeg synes det var ganske simpelt å fylle ut
+Jeg slet litt med "Kjennetegn" men ellers var det ganske lett
+Ja
+Det var veldig tydelig
+Knappen var lett å finne men det er lett å trykke på med feil
+Jeg synes nettsiden var veldig simpel å forstå uten mye ekstra unødvendig informasjon
+Legg til en "Er du sikker?" til når du skal slette for å ikke gjøre det med et uhell
 
 
 
