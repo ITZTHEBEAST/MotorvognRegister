@@ -49,6 +49,7 @@ Gutt, 17 år, har mye erfaring med pc, har ikke brukt en nettside for motorvognr
 6.den sletter tabellen
 
 **Tilbakemeldingsspørsål**
+
 1.Jeg synes det var ganske simpelt å fylle ut
 
 2.Jeg synes nettsiden var veldig simpel å forstå uten mye ekstra unødvendig informasjon
@@ -73,7 +74,7 @@ Gutt, 17 år, har mye erfaring med pc, har ikke brukt en nettside for motorvognr
 
 
 ## **Bruker 2:**
-Gutt, 16 år, har mye erfaring med data.
+Gutt, 16 år, har mye erfaring med data,har ikke brukt en nettside for motorvognregistre
 
 1. Jeg tror nettsiden har noe med motorvogner
    
@@ -110,7 +111,7 @@ Gutt, 16 år, har mye erfaring med data.
 
 
 ## **Bruker 3:**
-Gutt, 16 år, har mye erfaring med data.
+Gutt, 16 år, har mye erfaring med data, har ikke brukt en nettside for motorvognregistre.
 
 Det virker som om nettsiden er relatert til motorvogner.
 
