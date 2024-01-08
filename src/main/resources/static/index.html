@@ -15,9 +15,9 @@ Kjennetegn: <input type="text" id="kjennetegn"/>
 Bilmerke: <input type="text" id="bilmerke"/>
 Bil Type: <input type="text" id="biltype"/>
 <button onclick="lagreMotorvogn()">Registrer</button><br/>
-Alle Motorvogner:
+Alle Motorvogn:
 <div id="motorvognene"></div>
-<button onclick="slettAlleMotorvogner()">Slett registrerte</button>
+<button onclick="bekreftSlett()">Slett registrerte</button>
 
 <script type="application/javascript">
   function lagreMotorvogn() {
@@ -55,6 +55,13 @@ Alle Motorvogner:
     }
     ut += "</table>";
     $("#motorvognene").html(ut);
+  }
+
+  function bekreftSlett() {
+    if (confirm("Er du sikker på at du vil slette alle registreringer?")) {
+      slettAlleMotorvogner();
+    } else {
+    }
   }
 
   function slettAlleMotorvogner() {
