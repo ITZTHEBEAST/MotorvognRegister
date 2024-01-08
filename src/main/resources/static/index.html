@@ -4,9 +4,10 @@
   <meta charset="UTF-8">
   <title>motorvognregister</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="base.css">
 </head>
 <body>
-<h1>Kunde</h1>
+<h1>MotorvognRegister</h1>
 Eiers navn: <input type="text" id="navn"/>
 Eiers Personnummer: <input type="number" id="personnummer"/>
 Eiers adresse: <input type="text" id="adresse"/><br/>
@@ -14,7 +15,7 @@ Kjennetegn: <input type="text" id="kjennetegn"/>
 Bilmerke: <input type="text" id="bilmerke"/>
 Bil Type: <input type="text" id="biltype"/>
 <button onclick="lagreMotorvogn()">Registrer</button><br/>
-Alle kundene:
+Alle Motorvogner:
 <div id="motorvognene"></div>
 <button onclick="slettAlleMotorvogner()">Slett registrerte</button>
 
