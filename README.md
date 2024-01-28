@@ -142,7 +142,9 @@ Enkel å forstå og svært grei.
 jeg mener det funker ganske bra.
 
 
+# implementering
 
+Lakt til et bekreft knapp etter sletting
 
 
 
