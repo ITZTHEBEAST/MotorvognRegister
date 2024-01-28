@@ -9,9 +9,6 @@ public class Motorvogn {
     private String bilmerke;
     private String biltype;
 
-    public Motorvogn() {
-    }
-
     public Motorvogn(String navn, String adresse, int personnummer, String kjennetegn, String bilmerke, String biltype) {
         this.navn = navn;
         this.adresse = adresse;

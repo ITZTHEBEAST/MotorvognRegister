@@ -1,29 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <title>motorvognregister</title>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <link rel="stylesheet" href="base.css">
 </head>
+
 <body>
 <h1>MotorvognRegister</h1>
 <!-- Inndatafelt for eierens informasjon -->
-Eiers navn: <input type="text" id="navn"/>
-Eiers Personnummer: <input type="number" id="personnummer"/>
-Eiers adresse: <input type="text" id="adresse"/><br/>
-Kjennetegn: <input type="text" id="kjennetegn"/>
-Bilmerke: <input type="text" id="bilmerke"/>
-Bil Type: <input type="text" id="biltype"/>
+<div class="form-group">
+  Eiers navn: <input type="text" id="navn" /> Eiers Personnummer: <input type="number" id="personnummer" /> Eiers
+  adresse: <input type="text" id="adresse" /><br /> Kjennetegn: <input type="text" id="kjennetegn" /> Bilmerke:
+  <select id="bilmerke"></select> Bil Type: <select id="biltype"></select>
+</div>
 <!-- Knapp for å registrere et kjøretøy -->
-<button onclick="lagreMotorvogn()">Registrer</button><br/>
+<button onclick="lagreMotorvogn()">Registrer</button><br />
 Alle Motorvogn:
 <div id="motorvognene"></div>
 <!-- Knapp for å bekrefte sletting av alle registreringer -->
 <button onclick="bekreftSlett()">Slett registrerte</button>
 
 <script type="application/javascript">
-  //Samler inn verdier fra inndatafeltene og oppretter et motorvognsobjekt
   function lagreMotorvogn() {
     const motorvogn = {
       navn: $("#navn").val(),
@@ -33,32 +33,50 @@ Alle Motorvogn:
       bilmerke: $("#bilmerke").val(),
       biltype: $("#biltype").val()
     };
-    // Sender en POST-forespørsel for å lagre kjøretøydataene
+
     $.post("/lagre", motorvogn, function () {
       hentAlleMotorvogner();
     });
 
-    // Tømmer inndatafeltene etter registrering
-    $("#navn").val("");
-    $("#personnummer").val("");
-    $("#adresse").val("");
-    $("#kjennetegn").val("");
-    $("#bilmerke").val("");
-    $("#biltype").val("");
+    $("#navn, #personnummer, #adresse, #kjennetegn").val("");
+    $("#bilmerke, #biltype").empty();
   }
 
   function hentAlleMotorvogner() {
-    //Sender en GET-forespørsel for å hente alle registrerte kjøretøy
     $.get("/hentAlle", function (data) {
       formaterData(data);
     });
   }
 
+  function formaterKunder(kunder) {
+    let ut = "<table class='table table-striped'>" +
+            "<tr>" +
+            "<th>Fornavn</th><th>Etternavn</th>" +
+            "<th>Bilmerke</th><th>Førerkort</th>" +
+            "</tr>";
+    for (const kunde of kunder) {
+      let forerkort = "";
+      if (kunde.forerkort) {
+        forekort = "Ja";
+      } else {
+        forekort = "Nei";
+      }
+      ut += "<tr>" +
+              "<td>" + kunde.fornavn + "</td>" +
+              "<td>" + kunde.etternavn + "</td>" +
+              "<td>" + kunde.eierBil + "</td>" +
+              "<td>" + forekort + "</td>" +
+              "</tr>";
+    }
+    $("#kundene").html(ut);
+  }
+
   function formaterData(motorvogner) {
-    // Formaterer kjøretøydataene til en HTML-tabell
     let ut = "<table><tr><th>Navn</th><th>Personnummer</th><th>Adresse</th><th>Kjennetegn</th><th>Bilmerke</th><th>Bil Type</th></tr>";
     for (const motorvogn of motorvogner) {
-      ut += "<tr><td>" + motorvogn.navn + "</td><td>" + motorvogn.personnummer + "</td><td>" + motorvogn.adresse + "</td><td>" + motorvogn.kjennetegn + "</td><td>" + motorvogn.bilmerke + "</td><td>" + motorvogn.biltype + "</td></tr>";
+      ut += "<tr><td>" + motorvogn.navn + "</td><td>" + motorvogn.personnummer + "</td><td>" +
+              motorvogn.adresse + "</td><td>" + motorvogn.kjennetegn + "</td><td>" + motorvogn.bilmerke +
+              "</td><td>" + motorvogn.biltype + "</td></tr>";
     }
     ut += "</table>";
     $("#motorvognene").html(ut);
@@ -67,15 +85,47 @@ Alle Motorvogn:
   function bekreftSlett() {
     if (confirm("Er du sikker på at du vil slette alle registreringer?")) {
       slettAlleMotorvogner();
-    } else {
-    }
+    } else {}
   }
 
   function slettAlleMotorvogner() {
-    $.get("/slettAlle", function(){
+    $.get("/slettAlle", function () {
       hentAlleMotorvogner();
     });
   }
+
+  function fyllNedtrekkslister() {
+    const merker = ["Audi", "Ferarri",];
+    const typer = {
+      "Audi": ["K", "U", "L"],
+      "Ferarri": ["A1", "22B", "X"],
+      // Legg til flere merke-typelistekombinasjoner etter behov
+    };
+
+    const merkeDropdown = $("#bilmerke");
+    merker.forEach(function (merke) {
+      merkeDropdown.append(`<option value="${merke}">${merke}</option>`);
+    });
+
+    merkeDropdown.on("change", function () {
+      const valgtMerke = $(this).val();
+      const typeDropdown = $("#biltype");
+      typeDropdown.empty();
+
+      if (typer[valgtMerke]) {
+        typer[valgtMerke].forEach(function (type) {
+          typeDropdown.append(`<option value="${type}">${type}</option>`);
+        });
+      }
+    });
+
+    merkeDropdown.trigger("change");
+  }
+
+  $(document).ready(function () {
+    fyllNedtrekkslister();
+  });
 </script>
 </body>
+
 </html>
